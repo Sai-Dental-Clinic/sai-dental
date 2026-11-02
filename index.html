@@ -38,6 +38,7 @@
 <!-- ═══════ LOGIN ═══════ -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-card">
+    <button class="login-theme-toggle theme-toggle" type="button" onclick="toggleDark()" id="loginDarkBtn" aria-label="Switch to dark theme" aria-pressed="false">🌙 Dark</button>
     <div class="login-logo">
       <!-- Replace src with your actual logo image, e.g. ./icons/logo.png -->
       <img src="./icons/icon-192.png" alt="Sai Dental Logo"
@@ -495,7 +496,7 @@
         <button class="btn-print" onclick="repeatPreviousRx()">🔁 Repeat Last</button>
         <button class="btn-clr" onclick="shareRx()">📱 Share</button>
         <button class="btn-clr" onclick="openDentalChart()">🦷 Chart</button>
-        <button class="btn-clr" onclick="toggleDark()" id="darkBtn">🌙 Dark</button>
+        <button class="btn-clr theme-toggle" onclick="toggleDark()" id="darkBtn" aria-label="Switch to dark theme" aria-pressed="false">🌙 Dark</button>
       </div>
     </div>
 
@@ -1157,6 +1158,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <!-- App Script (classic script — loads after Firebase module) -->
-<script src="./js/app.js?v=20261028j" defer></script>
+<script src="./js/app.js?v=20261102a" defer></script>
 </body>
 </html>

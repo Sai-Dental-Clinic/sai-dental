@@ -24,7 +24,7 @@
   .doctor{margin-top:10px;font-weight:700;color:#1644ce}
   .credentials{font-size:12px;margin-top:3px}
   .header>div:nth-child(2){container-type:inline-size}
-  .specialty{display:flex;min-width:0;max-width:100%;align-items:baseline;gap:.2em;margin-top:5px;line-height:1.15;font-size:clamp(10px,3.2cqi,15px);font-weight:800;white-space:nowrap;letter-spacing:-.35px}
+  .specialty{display:flex;min-width:0;max-width:100%;align-items:baseline;gap:.2em;margin-top:5px;line-height:1.15;font-size:clamp(10px,3.6cqi,15px);font-weight:800;white-space:nowrap;letter-spacing:-.35px;transform:scaleY(1.25);transform-origin:center}
   .specialty-location{color:#1644ce}
   .specialty-services{font-size:.94em;color:#d915ab}
   .reg{font-size:12px;margin-top:5px;color:#1644ce}
@@ -118,7 +118,7 @@
     .logo{width:66px;height:66px}
     .brand{font-size:clamp(19px,5vw,21px);letter-spacing:0;gap:.2em;white-space:normal}
     .header>div:nth-child(2),.rxbox{min-width:0}
-    .specialty{gap:2px;margin-top:5px;font-size:clamp(10px,3.2cqi,15px);letter-spacing:-.45px}
+    .specialty{gap:2px;margin-top:5px;font-size:clamp(10px,3.7cqi,13.2px);letter-spacing:-.45px}
     .contacts{grid-column:1/-1;grid-template-columns:1fr 1fr;font-size:11px}
     .addresses{grid-template-columns:1fr}
     .address+.address{border-left:0;border-top:1px solid #d7dff2;margin-top:9px;padding-top:12px}
@@ -141,10 +141,15 @@
     .content{height:100%;min-height:0;display:flex;flex-direction:column}
     .header{grid-template-columns:32mm minmax(0,1fr) 50mm;flex:0 0 auto;break-inside:avoid}
     .brand{font-size:22px;gap:.25em}
-    .specialty{gap:1.5mm;margin-top:1.5mm;font-size:clamp(9px,3cqi,12px);line-height:1.15}
+    .specialty{gap:1.5mm;margin-top:1.5mm;font-size:clamp(9px,3.6cqi,15px);line-height:1.15}
     .contacts{font-size:10px}
     .contact-line>span:last-child{overflow-wrap:anywhere;word-break:break-word}
     .addresses,.patient,.rxbox,.diagnosis,.signature,.footer-art{flex-shrink:0;break-inside:avoid}
+    .addresses{margin:8px 0 10px}
+    .patient{margin:8px 8px}
+    .rxbox{margin:8px 0 12px}
+    .write-line{margin:7px 0}
+    .signature{height:80px}
     .paper:before,.paper:after,.footer-art,.footer-art:before,.heart,.footer-note{print-color-adjust:exact;-webkit-print-color-adjust:exact}
     .no-print{display:none!important}
     .rx-select{appearance:none;-webkit-appearance:none;border:0;border-radius:0;padding:0;background:transparent;color:#202a3a}
@@ -482,6 +487,7 @@
       };
     }
     const printPages=document.getElementById("printPages");
+    const medicinesPerPrintPage=7;
     function cloneWithFormValues(source){
       const clone=source.cloneNode(true);
       const sourceFields=source.querySelectorAll("input,textarea,select");
@@ -498,15 +504,15 @@
       [...rows.querySelectorAll("tr")].forEach(row=>{
         if(!medicineRows.includes(row))row.classList.add("print-empty-row");
       });
-      if(medicineRows.length<=5){
+      if(medicineRows.length<=medicinesPerPrintPage){
         document.body.classList.remove("print-pagination");
         return;
       }
-      for(let start=0;start<medicineRows.length;start+=5){
+      for(let start=0;start<medicineRows.length;start+=medicinesPerPrintPage){
         const page=cloneWithFormValues(document.querySelector(".paper"));
         page.classList.add("print-page");
         const pageRows=page.querySelector("#medicineRows");
-        pageRows.replaceChildren(...medicineRows.slice(start,start+5).map(cloneWithFormValues));
+        pageRows.replaceChildren(...medicineRows.slice(start,start+medicinesPerPrintPage).map(cloneWithFormValues));
         printPages.appendChild(page);
       }
       document.body.classList.add("print-pagination");

@@ -20,7 +20,9 @@ body{font-family: 'DM Sans', system-ui, -apple-system, sans-serif;background:var
 
 /* ── LOGIN ── */
 .login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;align-items:center;justify-content:center}
-.login-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rxl);box-shadow:var(--shadow-md);padding:40px 36px;width:380px;max-width:95vw;text-align:center}
+.login-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--rxl);box-shadow:var(--shadow-md);padding:40px 36px;width:380px;max-width:95vw;text-align:center}
+.login-theme-toggle{position:absolute;top:14px;right:14px;border:1px solid var(--border);border-radius:var(--r);background:var(--surf2);color:var(--muted);padding:6px 10px;font:500 12px 'DM Sans',sans-serif;cursor:pointer}
+.login-theme-toggle:hover{border-color:var(--teal-m);background:var(--teal-l);color:var(--teal-d)}
 .login-logo{width:68px;height:68px;background:var(--teal);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;overflow:hidden}
 .login-logo img{width:100%;height:100%;object-fit:cover;border-radius:16px}
 .login-title{font-family: 'Playfair Display', Georgia, serif;font-size:24px;color:var(--teal-d);margin-bottom:4px}

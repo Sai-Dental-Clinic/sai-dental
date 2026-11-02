@@ -1216,7 +1216,7 @@ function setDoctorPrescriptionMode(mode){
       });
       frame.dataset.resizeBound='1';
     }
-    if(!frame.src.includes('v=20261028j'))frame.src='./prescription-mockup.html?v=20261028j';
+    if(!frame.src.includes('v=20261102c'))frame.src='./prescription-mockup.html?v=20261102c';
     else{
       resizeDoctorPrescriptionFrame();
       setNewPrescriptionReadOnly(isStaff());
@@ -1817,18 +1817,27 @@ function closeModal(ev,id){
 }
 
 /* ─── DARK MODE ─── */
+function updateThemeButtons(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  document.querySelectorAll('.theme-toggle').forEach(button=>{
+    button.textContent=isDark?'☀️ Light':'🌙 Dark';
+    button.setAttribute('aria-label',isDark?'Switch to light theme':'Switch to dark theme');
+    button.setAttribute('aria-pressed',String(isDark));
+  });
+}
 function toggleDark(){
   const html=document.documentElement;
   const isDark=html.getAttribute('data-theme')==='dark';
-  if(isDark){html.removeAttribute('data-theme');localStorage.setItem('sd-theme','light');qs('darkBtn').textContent='🌙 Dark';}
-  else{html.setAttribute('data-theme','dark');localStorage.setItem('sd-theme','dark');qs('darkBtn').textContent='☀️ Light';}
+  if(isDark){html.removeAttribute('data-theme');localStorage.setItem('sd-theme','light');}
+  else{html.setAttribute('data-theme','dark');localStorage.setItem('sd-theme','dark');}
+  updateThemeButtons();
 }
 (function initTheme(){
   const saved=localStorage.getItem('sd-theme');
   if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
     document.documentElement.setAttribute('data-theme','dark');
-    if(qs('darkBtn'))qs('darkBtn').textContent='☀️ Light';
   }
+  updateThemeButtons();
 })();
 
 /* ─── MULTI-DOCTOR SUPPORT ─── */
