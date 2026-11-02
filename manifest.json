@@ -1,9 +1,10 @@
 {
-  "id": "/index.html",
+  "id": "/",
   "name": "Sai Dental Clinic",
   "short_name": "Sai Dental",
   "description": "Prescription Management System for Sai Dental Clinic, Mayiladuthurai",
-  "start_url": "./",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f0f4f3",
   "theme_color": "#0F6E56",
