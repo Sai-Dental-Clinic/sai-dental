@@ -3,17 +3,17 @@
    sw.js  (PWA offline support)
 ═══════════════════════════════════════════ */
 
-const CACHE_NAME = 'sai-dental-v90';
+const CACHE_NAME = 'sai-dental-v91';
 
 /* Files to cache for offline use */
 const PRECACHE = [
   './',
   './index.html',
   './prescription-mockup.html',
-  './prescription-mockup?v=20261103b',
-  './prescription-mockup.html?v=20261103b',
-  './css/style.css?v=20261103b',
-  './js/app.js?v=20261103b',
+  './prescription-mockup?v=20261103c',
+  './prescription-mockup.html?v=20261103c',
+  './css/style.css?v=20261103c',
+  './js/app.js?v=20261103c',
   './css/style.css',
   './js/firebase-init.js',
   './js/app.js',
