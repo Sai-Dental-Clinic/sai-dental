@@ -76,7 +76,7 @@
   .suggestion-control{z-index:3}
   .suggestion-options{position:absolute;z-index:10;top:100%;left:0;right:0;max-height:190px;overflow:auto;border:1px solid #ccd4e3;border-radius:4px;background:#fff;box-shadow:0 3px 10px #17243c20}
   .suggestion-options[hidden]{display:none}
-  .suggestion-option{display:block;width:100%;border:0;background:#fff;color:#202a3a;text-align:left;padding:7px 8px;font:12px Verdana,Geneva,sans-serif;cursor:pointer}
+  .suggestion-option{display:block;width:100%;min-height:44px;border:0;background:#fff;color:#202a3a;text-align:left;padding:10px 8px;font:14px Verdana,Geneva,sans-serif;cursor:pointer}
   .suggestion-option:hover,.suggestion-option:focus,.suggestion-option:active{outline:none;background:#fff;color:#202a3a;box-shadow:none}
   .rxbox{border:2px solid #e729c0;border-radius:20px;overflow:visible;margin:12px 0 22px}
   .rx-title{display:flex;align-items:center;gap:12px;padding:9px 14px 4px;color:#e729c0}
@@ -113,24 +113,54 @@
   #printPages{display:none}
   @media screen and (max-width:700px){
     body{padding:10px}
-    .paper{padding:24px 16px 0}
+    .paper{padding:24px 12px 0}
     .header{grid-template-columns:70px minmax(0,1fr);gap:10px}
     .logo{width:66px;height:66px}
-    .brand{font-size:clamp(19px,5vw,21px);letter-spacing:0;gap:.2em;white-space:normal}
+    .brand{font-size:clamp(19px,5vw,21px);letter-spacing:0;gap:.2em;white-space:normal;flex-wrap:wrap}
     .header>div:nth-child(2),.rxbox{min-width:0}
-    .specialty{gap:2px;margin-top:5px;font-size:clamp(10px,3.7cqi,13.2px);letter-spacing:-.45px}
+    .specialty{flex-wrap:wrap;gap:2px;margin-top:5px;font-size:clamp(10px,3.7cqi,13.2px);letter-spacing:-.2px;white-space:normal;transform:none}
     .contacts{grid-column:1/-1;grid-template-columns:1fr 1fr;font-size:11px}
     .addresses{grid-template-columns:1fr}
     .address+.address{border-left:0;border-top:1px solid #d7dff2;margin-top:9px;padding-top:12px}
-    .patient{margin-left:0;margin-right:0;font-size:12px}
+    .patient{margin:12px 0;font-size:14px}
+    .patient-line{grid-template-columns:minmax(0,1fr);gap:12px;margin:12px 0}
+    .patient-field{align-items:stretch;gap:4px}
+    .patient-field .fill,.fill{height:auto;max-width:none;min-width:0}
+    .patient-field:not(.age-sex-field){display:grid;grid-template-columns:1fr}
+    .patient-field.age-sex-field{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px}
+    .patient-field.age-sex-field label:nth-of-type(2){margin-left:0}
+    .patient-input{height:48px;min-height:48px;padding:8px 10px;border:1px solid #ccd4e3;border-radius:6px;background:#fff;font:400 16px/1.4 Verdana,Geneva,sans-serif}
+    .age-sex-field .patient-input{width:100%;max-width:none}
+    .date{max-width:none}
+    .rxbox{margin:14px 0 18px;border-radius:14px}
+    .rx-title{gap:8px;padding:8px 10px}
+    .rx-mark{font-size:34px}
+    .rx-caption{font-size:12px;letter-spacing:.5px}
+    .add-row{min-height:44px;padding:8px 10px;font-size:12px}
+    .rxbox table{display:block;width:100%;table-layout:auto}
+    .rxbox thead{display:none}
+    .rxbox tbody{display:grid;gap:10px;padding:10px}
+    .rxbox tbody tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;border:1px solid #d8e1e8;border-radius:10px;background:#fbfcff}
+    .rxbox tbody td{display:flex;min-width:0;height:auto;flex-direction:column;gap:5px;padding:0;border:0!important;font-size:12px}
+    .rxbox tbody td::before{content:attr(data-label);color:#526174;font-size:10px;font-weight:700;letter-spacing:.35px;text-transform:uppercase}
+    .rxbox tbody td:first-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end}
+    .rxbox tbody td:first-child::before{grid-column:1/-1}
+    .rxbox tbody td:first-child .suggestion-control{min-width:0}
+    .rxbox tbody td .rx-select{width:100%;max-width:none;min-width:0;min-height:48px;padding:8px 30px 8px 10px;border:1px solid #ccd4e3;border-radius:6px;background-color:#fff;font:400 16px Verdana,Geneva,sans-serif}
+    .rxbox tbody td .medicine-name{min-height:48px}
+    .rxbox tbody td:first-child .remove-row{min-height:44px;margin:0 0 2px 6px;padding:8px}
+    .empty-table{height:auto;min-height:56px;padding:14px;font-size:13px}
+    .diagnosis{margin:0}
+    .write-line{grid-template-columns:minmax(0,1fr);gap:4px;margin:14px 0}
+    .plan-input,.diagnosis-input{height:48px;min-height:48px;padding:8px 10px;border:1px solid #ccd4e3;border-radius:6px;background:#fff;font:400 16px/1.4 Verdana,Geneva,sans-serif}
+    .signature{height:78px;padding-right:10px}
+    .fee-panel{grid-template-columns:minmax(0,1fr);padding:12px;gap:10px}
+    .fee-panel>span,.fee-panel>div{grid-column:1!important}
+    .fee-field{grid-template-columns:minmax(105px,auto) minmax(0,1fr)}
+    .fee-field input,.fee-field select{min-width:0;min-height:44px;font:16px Verdana,Geneva,sans-serif}
+    #saveBillingButton{min-height:44px}
     .short,.op,.age,.date{max-width:none}
-    th,td{padding:6px 4px;font-size:10px}
-    th,td{overflow-wrap:anywhere}
-    th{font-size:9px}
-    td{height:58px}
-    .rx-select{min-width:0;max-width:100%;font-size:9px;padding:4px 2px}
-    .add-row{font-size:10px;padding:5px}
-    .footer-art{margin-left:-16px;margin-right:-16px}
+    .footer-art{margin-left:-12px;margin-right:-12px}
   }
   @media print{
     @page{size:A4 portrait;margin:0}
@@ -418,6 +448,7 @@
       drugInput.autocomplete="off";
       drugCell.appendChild(drugInput);
       const quantitySelect=createSelect("Quantity",quantities);
+      const foodSelect=createSelect("Before or after food",foodTimings);
       const frequencySelect=createSelect("Frequency",frequencies);
       const durationSelect=createSelect("Duration",durations);
       const remove=document.createElement("button");
@@ -439,11 +470,11 @@
       });
       createSuggestionInput(drugInput,medicines.map(([name])=>name));
       drugCell.append(drugInput.parentElement,remove);
-      row.append(drugCell);
-      const foodSelect=createSelect("Before or after food",foodTimings);
-      [quantitySelect,foodSelect,frequencySelect,durationSelect].forEach(select=>{
-        const cell=document.createElement("td");
-        cell.appendChild(select);
+      const labels=["Drug name","Quantity","Timing","Frequency","Duration"];
+      [drugCell,quantitySelect,foodSelect,frequencySelect,durationSelect].forEach((field,index)=>{
+        const cell=index===0?field:document.createElement("td");
+        cell.dataset.label=labels[index];
+        if(index>0)cell.appendChild(field);
         row.appendChild(cell);
       });
       if(rows.querySelector(".empty-table"))rows.replaceChildren();

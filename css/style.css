@@ -88,7 +88,7 @@ body{font-family: 'DM Sans', system-ui, -apple-system, sans-serif;background:var
 .clinic-title{font-family: 'Playfair Display', Georgia, serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:.3px}
 .clinic-tagline{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px;letter-spacing:.4px}
 .clinic-meta-strip{display:grid;grid-template-columns:2fr 1fr 1fr;border-top:1px solid var(--border)}
-@media(max-width:620px){.clinic-meta-strip{grid-template-columns:1fr}}
+@media screen and (max-width:620px){.clinic-meta-strip{grid-template-columns:1fr}}
 .meta-cell{padding:12px 20px;border-right:1px solid var(--border)}
 .meta-cell:last-child{border-right:none}
 .mlbl{font-size:10px;color:var(--hint);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;font-weight:500}
@@ -140,7 +140,7 @@ td select:focus,td input:focus{border-color:var(--teal-m);box-shadow:0 0 0 2px r
 
 /* ── BILLING ── */
 .billing-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;padding:18px 20px}
-@media(max-width:700px){.billing-grid{grid-template-columns:1fr}}
+@media screen and (max-width:700px){.billing-grid{grid-template-columns:1fr}}
 .notes-area{display:flex;flex-direction:column;gap:6px}
 .notes-area textarea{resize:vertical;min-height:100px}
 .bill-box{border:1px solid var(--border);border-radius:var(--rl);overflow:hidden}
@@ -550,7 +550,7 @@ body.pdf-mode [id^="rxTab"] td{font-size:10px!important;padding:4px!important;wh
 .receipt-sub{text-align:center;color:var(--muted);font-size:12px;margin-top:2px}.receipt-token{text-align:center;font-size:27px;font-weight:700;color:var(--teal);padding:18px 0;border-bottom:1px dashed var(--border2)}
 .receipt-line{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}.receipt-line span{color:var(--muted)}.receipt-line strong{text-align:right}.receipt-total{display:flex;justify-content:space-between;padding:15px 0;font-size:14px}.receipt-total strong{color:var(--teal)}
 .receipt-foot{text-align:center;border-top:1px solid var(--border);padding-top:14px;color:var(--muted);font-size:11px;line-height:1.6}.token-receipt-actions{padding:0 24px 20px;text-align:right}
-@media(max-width:700px){.token-hero-body{align-items:flex-start;flex-direction:column}.token-stats{width:100%}.token-stats div{flex:1;min-width:0}.token-form-grid{grid-template-columns:1fr 1fr}.token-fee-row{align-items:flex-start;flex-direction:column}.token-fee-row button{width:100%}.token-row{align-items:flex-start;flex-wrap:wrap}.token-meta{margin-left:auto}.token-row .btn-sm{margin-left:58px}}
+@media screen and (max-width:700px){.token-hero-body{align-items:flex-start;flex-direction:column}.token-stats{width:100%}.token-stats div{flex:1;min-width:0}.token-form-grid{grid-template-columns:1fr 1fr}.token-fee-row{align-items:flex-start;flex-direction:column}.token-fee-row button{width:100%}.token-row{align-items:flex-start;flex-wrap:wrap}.token-meta{margin-left:auto}.token-row .btn-sm{margin-left:58px}}
 @media print{#tokenTab{display:none!important}body.token-print>*{display:none!important}body.token-print #tokenReceiptModal{display:block!important;position:static;background:#fff;padding:0}body.token-print .token-receipt-modal{margin:0 auto;box-shadow:none;border:none;max-width:420px}body.token-print .token-receipt{padding:20px}}
 
 /* ─── PATIENT MANAGEMENT ─── */
@@ -576,13 +576,28 @@ body.pdf-mode [id^="rxTab"] td{font-size:10px!important;padding:4px!important;wh
 .pat-visit-paid{font-size:11px;color:var(--muted);min-width:50px;text-align:right}
 
 /* ── RESPONSIVE TWEAKS ── */
-@media(max-width:620px){
+@media screen and (max-width:620px){
+  .app{padding:16px 12px calc(84px + env(safe-area-inset-bottom))}
+  .sync-bar{padding:8px 10px;gap:6px}
+  .sync-bar .sync-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;width:100%;order:3;margin:4px 0 0}
+  .sync-stat{font-size:10px;min-width:0}
+  .sync-bar>div:last-child{max-width:100%;margin-left:auto!important;gap:6px!important}
+  .user-pill{min-width:0;margin-left:auto;gap:5px;padding:3px 8px 3px 5px}
+  .user-pill #userEmail{max-width:32vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topnav{gap:8px;margin-bottom:12px}
+  .tabs{position:fixed;z-index:1000;right:0;bottom:0;left:0;margin:0;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(0,0,0,.08);scroll-padding-inline:12px}
+  .tab{min-height:46px;padding:8px 12px}
+  .card-hdr{padding:10px 12px;gap:8px}
+  .card-body{padding:14px 12px}
+  .action-bar{padding:0 12px 14px}
   #rxTab .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #rxTab .pgrid{gap:10px}
+  .fld input,.fld select,.fld textarea{min-height:42px}
   #doctorRxFrame{height:142vw}
   .topnav{flex-direction:column;align-items:stretch}
-  .tabs{overflow-x:auto;flex-wrap:nowrap;gap:4px;padding-bottom:4px;order:99;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;gap:6px;order:99;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
   .tabs::-webkit-scrollbar{display:none}
-  .tab{flex-shrink:0;scroll-snap-align:start;font-size:12px;padding:7px 14px;white-space:nowrap}
+  .tab{flex-shrink:0;scroll-snap-align:start;font-size:12px;padding:8px 14px;white-space:nowrap}
   .dash-grid{grid-template-columns:repeat(2,1fr)}
   .dash-row{grid-template-columns:1fr;gap:16px}
   .inv-item{grid-template-columns:1fr auto auto}
@@ -612,12 +627,37 @@ body.pdf-mode [id^="rxTab"] td{font-size:10px!important;padding:4px!important;wh
   #rxTab .tbl-scroll tbody td select{padding-right:28px}
   #rxTab .tbl-scroll tbody td:nth-child(9){justify-content:space-between}
   #rxTab .tbl-scroll tbody td:nth-child(9)::before{margin-right:auto}
-  .sync-bar .sync-stats{width:100%;order:2}
   .user-pill{margin-left:0}
   .action-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
   .action-bar > div{grid-column:1/-1}
   .action-bar .btn-save,.action-bar .btn-print,.action-bar .btn-clr,.action-bar .btn-export{width:100%;justify-content:center;padding:8px 8px;font-size:11px;text-align:center}
-  .toast{right:12px;left:12px;max-width:unset;bottom:12px;text-align:center}
+  .toast{right:12px;left:12px;max-width:unset;bottom:calc(76px + env(safe-area-inset-bottom));text-align:center}
+}
+@media screen and (max-width:360px){
+  .app{padding-right:10px;padding-left:10px}
+  .tabs{margin-right:-10px;margin-left:-10px;padding-right:10px;padding-left:10px}
+  .tab{font-size:11px;padding-right:10px;padding-left:10px}
+  .sync-bar .sync-stats{grid-template-columns:1fr 1fr}
+  .sync-bar .sync-stat:last-child{grid-column:1/-1}
+  .card-hdr{padding-right:10px;padding-left:10px}
+  .card-body{padding-right:10px;padding-left:10px}
+}
+@media screen and (max-width:620px){
+  input,select,textarea{min-height:44px;font-size:16px}
+  .btn-sm,.btn-add,.btn-clr,.btn-save,.btn-print,.btn-export{min-height:44px}
+  .modal-overlay{padding:12px}
+  .modal-card,.modal-card-wide{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+}
+@media screen and (max-width:420px){
+  .login-overlay{padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+  .login-card{width:100%;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;padding:36px 22px 24px}
+  .login-btn{min-height:48px}
+  #rxTab .pgrid,.token-form-grid{grid-template-columns:minmax(0,1fr)}
+  #rxTab .patient-med{grid-column:1/-1}
+  .token-form-grid .fld[style*="grid-column"]{grid-column:1/-1!important}
+  .tabs{padding-right:10px;padding-left:10px}
+  .modal-overlay{align-items:flex-end;padding:0}
+  .modal-card,.modal-card-wide{width:100%;max-width:none;max-height:calc(100vh - 20px);max-height:calc(100dvh - env(safe-area-inset-top));border-radius:var(--rxl) var(--rxl) 0 0;padding-bottom:env(safe-area-inset-bottom)}
 }
 
 #doctorRxFrame{display:block;width:100%;height:min(1240px,142vw);border:0;background:#fff}
