@@ -1210,13 +1210,22 @@ function setDoctorPrescriptionMode(mode){
   if(showNew&&frame){
     if(!frame.dataset.resizeBound){
       frame.addEventListener('load',()=>{
+        const doc=frame.contentDocument;
+        if(!doc?.querySelector('.paper')){
+          console.error('Prescription form failed to load:',frame.src);
+          showToast('New prescription form failed to load. Check your connection and reload.','err');
+          return;
+        }
         resizeDoctorPrescriptionFrame();
         setNewPrescriptionReadOnly(isStaff());
         updateStaffRxActions();
       });
       frame.dataset.resizeBound='1';
     }
-    if(!frame.src.includes('v=20261103a'))frame.src='./prescription-mockup.html?v=20261103a';
+    const formPath=location.protocol==='file:'
+      ? './prescription-mockup.html?v=20261103b'
+      : './prescription-mockup?v=20261103b';
+    if(frame.src!==new URL(formPath,location.href).href)frame.src=formPath;
     else{
       resizeDoctorPrescriptionFrame();
       setNewPrescriptionReadOnly(isStaff());

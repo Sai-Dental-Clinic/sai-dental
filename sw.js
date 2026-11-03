@@ -3,14 +3,17 @@
    sw.js  (PWA offline support)
 ═══════════════════════════════════════════ */
 
-const CACHE_NAME = 'sai-dental-v89';
+const CACHE_NAME = 'sai-dental-v90';
 
 /* Files to cache for offline use */
 const PRECACHE = [
   './',
   './index.html',
   './prescription-mockup.html',
-  './prescription-mockup.html?v=20261103a',
+  './prescription-mockup?v=20261103b',
+  './prescription-mockup.html?v=20261103b',
+  './css/style.css?v=20261103b',
+  './js/app.js?v=20261103b',
   './css/style.css',
   './js/firebase-init.js',
   './js/app.js',
@@ -40,12 +43,32 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-/* Fetch: network-first for Firebase/API, cache-first for assets */
+/* Fetch: network-first for app files and Firebase, cache-first for other assets */
 self.addEventListener('fetch', event => {
   /* Skip non-http(s) requests (chrome-extension, data:, etc.) */
   if (!event.request.url.startsWith('http')) return;
 
   const url = new URL(event.request.url);
+  const isAppFile = url.origin === self.location.origin &&
+    /^\/(?:index\.html|css\/style\.css|js\/app\.js|prescription-mockup(?:\.html)?)$/.test(url.pathname);
+
+  if (isAppFile) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        if (event.request.method === 'GET' && response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(async () => {
+        const cached = await caches.match(event.request) || await caches.match(event.request, {ignoreSearch:true});
+        if (cached) return cached;
+        if (event.request.mode === 'navigate') return caches.match('./index.html');
+        return Response.error();
+      })
+    );
+    return;
+  }
 
   /* Always go network-first for Firebase requests */
   if (url.hostname.includes('firebase') || url.hostname.includes('firestore') || url.hostname.includes('googleapis')) {
