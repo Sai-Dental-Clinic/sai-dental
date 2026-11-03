@@ -49,8 +49,10 @@ self.addEventListener('fetch', event => {
   if (!event.request.url.startsWith('http')) return;
 
   const url = new URL(event.request.url);
+  const scopePath = new URL(self.registration.scope).pathname;
+  const relativePath = url.pathname.startsWith(scopePath) ? url.pathname.slice(scopePath.length) : null;
   const isAppFile = url.origin === self.location.origin &&
-    /^\/(?:index\.html|css\/style\.css|js\/app\.js|prescription-mockup(?:\.html)?)$/.test(url.pathname);
+    /^(?:|index\.html|css\/style\.css|js\/app\.js|prescription-mockup(?:\.html)?)$/.test(relativePath ?? '\0');
 
   if (isAppFile) {
     event.respondWith(
