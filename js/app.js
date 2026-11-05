@@ -628,10 +628,6 @@ let _navHistory = [];
 
 function qs(id){return document.getElementById(id)}
 function fmt(n){return '₹'+parseFloat(n).toFixed(2)}
-function medOpts(sel){
-  return '<option value="">— Select medicine —</option>'+
-    MEDS.map(m=>`<option ${m.name===sel?'selected':''}>${m.name}</option>`).join('');
-}
 function listOpts(arr,sel){
   return '<option value="">—</option>'+
     arr.map(v=>`<option ${v===sel?'selected':''}>${v}</option>`).join('');
@@ -668,12 +664,12 @@ function renderRows(){
   qs('rxBody').innerHTML=rows.map((r,i)=>`
     <tr>
        <td data-label="#" style="text-align:center;color:var(--muted);font-size:12px;padding-left:8px">${i+1}</td>
-       <td data-label="Medicine Name"><select style="width:100%" onchange="onMed(${r.id},this.value)">${medOpts(r.name)}</select></td>
-       <td data-label="Dosage"><input type="text" value="${r.dosage}" style="width:100%" oninput="rc(${r.id},'dosage',this.value)"/></td>
-       <td data-label="Frequency"><select style="width:100%" onchange="rc(${r.id},'freq',this.value)">${listOpts(FREQS,r.freq)}</select></td>
-       <td data-label="Duration"><select style="width:100%" onchange="rc(${r.id},'dur',this.value)">${listOpts(DURS,r.dur)}</select></td>
-       <td data-label="Qty"><input type="number" value="${r.qty}" min="1" max="999" style="width:58px" oninput="rc(${r.id},'qty',+this.value);renderRows()"/></td>
-       <td data-label="Rate (₹)"><input type="number" value="${r.rate}" min="0" step="0.5" style="width:70px" oninput="rc(${r.id},'rate',+this.value);renderRows()"/></td>
+       <td data-label="Medicine Name"><input type="text" value="${escapeHtmlAttr(r.name)}" list="rxMeds${r.id}" autocomplete="off" aria-label="Medicine name" placeholder="Type or select medicine" style="width:100%" oninput="onMed(${r.id},this.value)"/><datalist id="rxMeds${r.id}">${MEDS.map(m=>`<option value="${escapeHtmlAttr(m.name)}"></option>`).join('')}</datalist></td>
+       <td data-label="Dosage"><input type="text" value="${escapeHtmlAttr(r.dosage)}" aria-label="Dosage" style="width:100%" oninput="rc(${r.id},'dosage',this.value)"/></td>
+       <td data-label="Frequency"><select aria-label="Frequency" style="width:100%" onchange="rc(${r.id},'freq',this.value)">${listOpts(FREQS,r.freq)}</select></td>
+       <td data-label="Duration"><select aria-label="Duration" style="width:100%" onchange="rc(${r.id},'dur',this.value)">${listOpts(DURS,r.dur)}</select></td>
+       <td data-label="Qty"><input type="number" value="${r.qty}" min="1" max="999" inputmode="numeric" aria-label="Quantity" style="width:58px" oninput="rc(${r.id},'qty',+this.value);updateRowTotals(${r.id})"/></td>
+       <td data-label="Rate (₹)"><input type="number" value="${r.rate}" min="0" step="0.5" inputmode="decimal" aria-label="Rate in rupees" style="width:70px" oninput="rc(${r.id},'rate',+this.value);updateRowTotals(${r.id})"/></td>
        <td data-label="Instructions"><select style="width:100%" onchange="rc(${r.id},'inst',this.value)">${listOpts(INSTS,r.inst)}</select></td>
        <td data-label="Amount (₹)" class="amt-cell">${fmt(r.qty*r.rate)}</td>
        <td data-label=""><button class="btn-del" onclick="delRow(${r.id})" title="Remove">✕</button></td>
@@ -683,8 +679,23 @@ function renderRows(){
 }
 function onMed(id,val){
   const r=rows.find(x=>x.id===id);if(!r)return;
-  const m=MEDS.find(x=>x.name===val)||{dosage:'',rate:0};
-  r.name=val;r.dosage=m.dosage;r.rate=m.rate;renderRows();
+  const m=MEDS.find(x=>x.name.toLowerCase()===val.trim().toLowerCase());
+  const changed=val!==r.name;
+  r.name=m?m.name:val;
+  if(m){r.dosage=m.dosage;r.rate=m.rate;}
+  else if(!val.trim()||changed){r.dosage='';r.rate=0;}
+  const row=qs('rxBody').rows[rows.indexOf(r)];
+  if(row){
+    row.cells[2].querySelector('input').value=r.dosage;
+    row.cells[6].querySelector('input').value=r.rate;
+  }
+  updateRowTotals(id);
+}
+function updateRowTotals(id){
+  const r=rows.find(x=>x.id===id);if(!r)return;
+  const row=qs('rxBody').rows[rows.indexOf(r)];
+  if(row)row.cells[8].textContent=fmt(r.qty*r.rate);
+  calcBill();
 }
 function rc(id,f,v){const r=rows.find(x=>x.id===id);if(r)r[f]=v;}
 function delRow(id){
@@ -1223,8 +1234,8 @@ function setDoctorPrescriptionMode(mode){
       frame.dataset.resizeBound='1';
     }
     const formPath=location.protocol==='file:'
-      ? './prescription-mockup.html?v=20261103c'
-      : './prescription-mockup?v=20261103c';
+      ? './prescription-mockup.html?v=20261105c'
+      : './prescription-mockup?v=20261105c';
     if(frame.src!==new URL(formPath,location.href).href)frame.src=formPath;
     else{
       resizeDoctorPrescriptionFrame();

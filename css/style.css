@@ -110,10 +110,26 @@ body{font-family: 'DM Sans', system-ui, -apple-system, sans-serif;background:var
 .rx-patient-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 #rxTab .patient-med{grid-column:span 2}
 .fld{display:flex;flex-direction:column;gap:5px}
-.flbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:500}
-input,select,textarea{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:8px 12px;width:100%;outline:none;transition:border-color .2s,box-shadow .2s}
+.flbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]),select,textarea{font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.4;color:var(--ink);background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;width:100%;min-height:42px;outline:none;caret-color:var(--teal-d);transition:border-color .2s,box-shadow .2s}
 input:focus,select:focus,textarea:focus{border-color:var(--teal-m);box-shadow:0 0 0 3px rgba(93,202,165,.15)}
+input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]),textarea{cursor:text}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--teal);cursor:pointer}
 select{cursor:pointer;appearance:none;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 10px center;padding-right:28px}
+
+@media screen{
+  input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+  input:disabled,select:disabled,textarea:disabled{cursor:not-allowed}
+  input::placeholder,textarea::placeholder{color:var(--hint);opacity:1}
+  .tbl-scroll{scrollbar-color:var(--border2) var(--surf2);scrollbar-width:thin}
+  .tbl-scroll::-webkit-scrollbar{height:8px}
+  .tbl-scroll::-webkit-scrollbar-track{background:var(--surf2);border-radius:8px}
+  .tbl-scroll::-webkit-scrollbar-thumb{background:var(--border2);border:2px solid var(--surf2);border-radius:8px}
+}
+
+@media screen and (max-width:820px){
+  .rx-patient-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 
 /* ── ANIMATIONS ── */
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
@@ -510,7 +526,7 @@ body.pdf-mode [id^="rxTab"] td{font-size:10px!important;padding:4px!important;wh
 #rxTab .tbl-scroll table{min-width:0;width:100%;table-layout:fixed;font-size:12px}
 #rxTab .tbl-scroll th{padding:8px 8px;font-size:13px;letter-spacing:.2px}
 #rxTab .tbl-scroll td{padding:4px 4px}
-#rxTab .tbl-scroll td select,#rxTab .tbl-scroll td input[type=text],#rxTab .tbl-scroll td input[type=number]{padding:8px 12px;font-size:13px}
+#rxTab .tbl-scroll td select,#rxTab .tbl-scroll td input[type=text],#rxTab .tbl-scroll td input[type=number]{padding:8px 10px;font-size:13px;min-height:40px}
 #rxTab .tbl-scroll td select{padding-right:28px}
 #rxTab .tbl-scroll th:nth-child(1),#rxTab .tbl-scroll td:nth-child(1){width:4%!important}
 #rxTab .tbl-scroll th:nth-child(2),#rxTab .tbl-scroll td:nth-child(2){width:22%!important}
@@ -644,7 +660,7 @@ body.pdf-mode [id^="rxTab"] td{font-size:10px!important;padding:4px!important;wh
   .card-body{padding-right:10px;padding-left:10px}
 }
 @media screen and (max-width:620px){
-  input,select,textarea{min-height:44px;font-size:16px}
+  input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]),select,textarea{min-height:44px;font-size:16px}
   .btn-sm,.btn-add,.btn-clr,.btn-save,.btn-print,.btn-export{min-height:44px}
   .modal-overlay{padding:12px}
   .modal-card,.modal-card-wide{max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
