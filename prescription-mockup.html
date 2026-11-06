@@ -118,6 +118,16 @@
   .heart{position:absolute;left:50%;top:31px;transform:translateX(-50%);color:#e829bc;font-size:28px}
   .footer-note{position:absolute;left:0;right:0;bottom:4px;text-align:center;color:#fff;font-size:10px;letter-spacing:.4px}
   #printPages{display:none}
+  .aftercare-page{display:block;width:min(820px,100%);min-height:680px;margin:14px auto;padding:24px 34px;background:#fff;border:1px solid #d8e1e8;box-shadow:0 8px 28px #1d33441c}
+  .aftercare-card{border:1.5px solid #264a98;border-radius:10px;padding:8mm;color:#17366f;font-family:"Nirmala UI","Latha",sans-serif}
+  .aftercare-title{width:fit-content;max-width:100%;margin:0 auto 6mm;padding:2mm 4mm;border:1.5px solid #264a98;color:#17366f;text-align:center;font-size:17px;font-weight:800;line-height:1.4}
+  .aftercare-list{margin:0;padding:0;list-style:none}
+  .aftercare-list li{position:relative;margin:0 0 2.5mm;padding-left:6mm;font-size:14px;font-weight:800;line-height:1.55}
+  .aftercare-list li:before{content:"❖";position:absolute;left:0;top:0;color:#264a98;font-family:Arial,sans-serif;font-size:11px}
+  .aftercare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:7mm;border-top:1px solid #c7d0e2;border-left:1px solid #c7d0e2}
+  .aftercare-option{display:flex;align-items:center;gap:2mm;min-width:0;min-height:12mm;padding:2mm 3mm;border-right:1px solid #c7d0e2;border-bottom:1px solid #c7d0e2;font-family:Verdana,Geneva,sans-serif;font-size:12px;font-weight:600;line-height:1.25}
+  .aftercare-option{cursor:pointer}
+  .aftercare-option input{width:4mm;height:4mm;flex:none;margin:0;accent-color:#264a98;cursor:pointer}
   @media screen and (max-width:700px){
     body{padding:10px}
     .paper{padding:24px 12px 0}
@@ -168,10 +178,13 @@
     #saveBillingButton{min-height:44px}
     .short,.op,.age,.date{max-width:none}
     .footer-art{margin-left:-12px;margin-right:-12px}
+    .aftercare-page{min-height:0;margin:10px auto;padding:12px}
+    .aftercare-card{padding:16px}
+    .aftercare-title{font-size:15px}
   }
   @media print{
     @page{size:A4 portrait;margin:0}
-    html,body,.paper,.content,.header,.addresses,.rxbox,table,.diagnosis,.signature,.footer-art{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html,body,.paper,.content,.header,.addresses,.rxbox,table,.diagnosis,.signature,.footer-art,.aftercare-page,.aftercare-card{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     html,body{width:210mm;height:297mm;margin:0;padding:0;background:#fff}
     .toolbar{display:none}
     .paper{position:relative;top:0;left:0;width:210mm;height:297mm;aspect-ratio:auto;max-width:none;min-height:297mm;margin:0;border:0;box-shadow:none;padding:9mm 10mm 0;overflow:hidden;break-after:page;box-sizing:border-box}
@@ -206,6 +219,8 @@
     body.print-pagination #printPages{display:block!important}
     #printPages .paper{break-after:page;page-break-after:always}
     #printPages .paper:last-child{break-after:auto;page-break-after:auto}
+    .aftercare-page{display:block;width:210mm;height:297mm;margin:0;padding:67mm 10mm 0;break-before:page;page-break-before:always;break-after:auto;page-break-after:auto;box-sizing:border-box}
+    .aftercare-card{padding:8mm}
   }
 </style>
 </head>
@@ -277,6 +292,31 @@
       <div class="footer-art" aria-hidden="true"><span class="heart">♥</span><span class="footer-note">SAI DENTAL CLINIC · YOUR SMILE, OUR MISSION</span></div>
     </div>
   </main>
+  <div id="printPages" aria-hidden="true"></div>
+  <section class="aftercare-page" aria-label="Post-extraction instructions and medical conditions">
+    <div class="aftercare-card">
+      <h1 class="aftercare-title">பல் எடுத்த பிறகு கடைபிடிக்க வேண்டிய விதிமுறைகள்</h1>
+      <ul class="aftercare-list">
+        <li>பல் எடுத்த இடத்தில் வைக்கப்பட்ட பஞ்சை குறைந்தது அரை மணி நேரம் கடித்துக் கொள்ள வேண்டும்.</li>
+        <li>பல் எடுத்த நாள் அன்று சூடான மற்றும் காரமான உணவை தவிர்க்க வேண்டும்.</li>
+        <li>பல் எடுத்த பிறகு குறைந்தபட்சம் எட்டு மணி நேரம் எச்சில் துப்பவோ, வாய் கொப்பளிக்கவோ கூடாது.</li>
+        <li>பல் எடுத்த இடத்தில் நாக்கு மற்றும் விரல்களை வைத்து பார்க்கக் கூடாது.</li>
+        <li>இது தொற்று மற்றும் வீக்கத்திற்கு வழி வகுக்கும்.</li>
+        <li>மருத்துவரின் ஆலோசனைபடியே மருந்துகளை எடுத்துக் கொள்ள வேண்டும்.</li>
+      </ul>
+      <div class="aftercare-grid" aria-label="Medical conditions">
+        <label class="aftercare-option"><input type="checkbox"/>Allergy</label>
+        <label class="aftercare-option"><input type="checkbox"/>Epilepsy</label>
+        <label class="aftercare-option"><input type="checkbox"/>Anemia</label>
+        <label class="aftercare-option"><input type="checkbox"/>Medicine Allergy</label>
+        <label class="aftercare-option"><input type="checkbox"/>Cardiac Issue</label>
+        <label class="aftercare-option"><input type="checkbox"/>Recent Surgery</label>
+        <label class="aftercare-option"><input type="checkbox"/>BP</label>
+        <label class="aftercare-option"><input type="checkbox"/>Diabetes</label>
+        <label class="aftercare-option"><input type="checkbox"/>Asthma</label>
+      </div>
+    </div>
+  </section>
   <section class="fee-panel no-print" aria-label="Internal prescription fees and payment">
     <span style="grid-column:1/-1;color:#526174;font-size:12px">Internal billing details — not shown on the printed prescription.</span>
     <label class="fee-field" id="treatmentFeeField" for="treatmentFeeInput">Treatment fee <input id="treatmentFeeInput" type="number" min="0" step="0.01" value="0" aria-label="Treatment fee"/></label>
@@ -294,7 +334,6 @@
       <button class="add-row" id="saveBillingButton" type="button" disabled>Save fees/payment</button>
     </div>
   </section>
-  <div id="printPages" aria-hidden="true"></div>
   <script>
     const medicines=[
       ["Amoxicillin Clavulanate 375 mg","375mg"],["Amoxicillin Clavulanate 625 mg","625mg"],

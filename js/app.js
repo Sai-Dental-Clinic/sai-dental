@@ -1234,8 +1234,8 @@ function setDoctorPrescriptionMode(mode){
       frame.dataset.resizeBound='1';
     }
     const formPath=location.protocol==='file:'
-      ? './prescription-mockup.html?v=20261105c'
-      : './prescription-mockup?v=20261105c';
+      ? './prescription-mockup.html?v=20261106b'
+      : './prescription-mockup?v=20261106b';
     if(frame.src!==new URL(formPath,location.href).href)frame.src=formPath;
     else{
       resizeDoctorPrescriptionFrame();

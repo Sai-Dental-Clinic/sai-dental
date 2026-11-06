@@ -3,15 +3,15 @@
    sw.js  (PWA offline support)
 ═══════════════════════════════════════════ */
 
-const CACHE_NAME = 'sai-dental-v94';
+const CACHE_NAME = 'sai-dental-v96';
 
 /* Files to cache for offline use */
 const PRECACHE = [
   './',
   './index.html',
   './prescription-mockup.html',
-  './prescription-mockup?v=20261105c',
-  './prescription-mockup.html?v=20261105c',
+  './prescription-mockup?v=20261106b',
+  './prescription-mockup.html?v=20261106b',
   './css/style.css?v=20261105c',
   './js/app.js?v=20261105c',
   './css/style.css',
